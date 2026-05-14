@@ -1,0 +1,3 @@
+import BlogCard from "@/components/BlogCard"; import { db } from "@/lib/db"; import { seo } from "@/lib/seo";
+export const metadata=seo({title:"Articles & Insights — Threads of Enlightenment",description:"Faith, purpose, and transformation insights from Ken Primus."});
+export default async function Blog(){const posts=await db.blogPost.findMany({where:{published:true},orderBy:{createdAt:"desc"}}).catch(()=>[]);return <main className="mx-auto max-w-7xl px-4 py-16"><h1 className="text-5xl font-bold text-midnight">Articles & Insights</h1><div className="mt-10 grid gap-6 md:grid-cols-3">{posts.map(p=><BlogCard key={p.id} post={p}/>)}{!posts.length&&<p>No articles published yet.</p>}</div></main>}
